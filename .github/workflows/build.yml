@@ -14,19 +14,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Arrange files
+      - name: Unpack project
         run: |
-          A=app/src/main
-          mkdir -p $A/assets $A/java/com/hamzakufi/tajweed $A/res/layout $A/res/menu $A/res/values $A/res/drawable $A/res/mipmap-anydpi-v26
-          mv app_build.gradle.kts app/build.gradle.kts
-          mv book.pdf $A/assets/
-          mv AndroidManifest.xml $A/
-          mv MainActivity.kt $A/java/com/hamzakufi/tajweed/
-          mv activity_main.xml $A/res/layout/
-          mv main.xml $A/res/menu/
-          mv strings.xml themes.xml colors.xml $A/res/values/
-          mv ic_foreground.xml $A/res/drawable/
-          mv ic_launcher.xml $A/res/mipmap-anydpi-v26/
+          unzip -q tajweed-app.zip
+          cp -a tajweed-app/. .
 
       - uses: actions/setup-java@v4
         with:
@@ -73,4 +64,4 @@ jobs:
         with:
           tag_name: v1.${{ github.run_number }}
           name: الإصدار ${{ github.run_number }}
-          files: al-qawl-al-rashid.apk
+          files: al-qawl-al-rashid.apk 
